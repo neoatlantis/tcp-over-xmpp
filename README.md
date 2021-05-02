@@ -19,7 +19,7 @@ backwarding data stream to another program or free Internet.
 
 First, write a config file:
 
-`
+```json
 {
     "role": "client", // or "server"
     "xmpp": {
@@ -35,7 +35,7 @@ First, write a config file:
         "port": 10000
     }
 }
-`
+```
 
 Then run:
 
