@@ -3,17 +3,17 @@ TCP Bytestream over XMPP
 
 This tool provides a novel method of accessing Internet behind firewall. TCP
 proxy providers can serve over the XMPP federation network. This should add
-some more work for censorship powers.
+some more work for censorship powers. But beyond that, this tool will also
+connect any computers capable of accessing the XMPP network together, building
+up decentralized, cross-computer data channels for multiple purposes.
 
-TCP bytestream is transmitted using XEP-0047 (In-band bytestream). This
-implementation may also be separated for other use, e.g. transmission of
-images, etc.
+TCP bytestream is transmitted using XEP-0047 (In-band bytestream). This XEP
+implementation may also be separated for other use, e.g. transmission of images
+for a chat program, etc.
 
-This tool have 2 parts: a client and a server. However, both of them are
+This tool have 2 roles: a client and a server. However, both of them are
 clients in terms of XMPP protocol. "server" only means forwarding and "client"
-backwarding data stream to another program or free Internet. A client may also
-forward TCP data stream to different server XMPP accounts to obfuscate some
-traffic analysis.
+backwarding data stream to another program or free Internet.
 
 ###  Usage
 
@@ -48,3 +48,9 @@ traffic will be forwarded to.
 
 Currently only JID with "/tmpp" are supported (and required). No service
 discoveries.
+
+### To be done...
+
+1. Insert a ephemeral TLS socket between TCP and XMPP stream, to build up
+confidential and PFS-enabled transmission for enhanced security.
+2. Data compression?
