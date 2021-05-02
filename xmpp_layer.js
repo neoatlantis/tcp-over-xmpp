@@ -35,8 +35,13 @@ class XMPPLayer extends events.EventEmitter {
 
         this.bytestreamEndpoint.on("bytestream", function(bytestream){
             console.log("Remote bytestream request. Accept.");
-            //bytestream.accept();
-            bytestream.reject();
+            bytestream.accept();
+            //bytestream.reject();
+
+            bytestream.on("data", function(e){
+                console.log("----- server recv -----", e);
+            });
+
         });
 
         this.xmpp.on('stanza', (stanza)=>{
@@ -58,7 +63,11 @@ class XMPPLayer extends events.EventEmitter {
         );
         console.log("OUTGOING STANZA --- ", stanza.toString());
         await this.xmpp.send(stanza);*/
-        this.bytestreamEndpoint.create(this.peer);
+        const bytestream = await this.bytestreamEndpoint.create(this.peer);
+        bytestream.on("open", function(){
+            console.log("Outgoing bytestream opened.");
+            bytestream.end();
+        });
     }
 
 }
