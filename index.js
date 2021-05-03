@@ -22,15 +22,36 @@ function build_pipe(a, b){
     a.pipe(b);
     b.pipe(a);
 
+    function destroy_ab(){
+        [
+            ()=>a.unpipe(b),
+            ()=>b.unpipe(a),
+            ()=>a.removeAllListeners(),
+            ()=>b.removeAllListeners(),
+            ()=>a.destroy(),
+            ()=>b.destroy(),
+        ].forEach((i)=>{
+            try{
+                i();
+            } catch(e){
+                console.log("Destroy error:", e);
+            }
+        });
+    }
+
     a.on("error", function(e){
         console.log("bytestream error", e);
-        a.unpipe(b);
-        a.destroy();
+        destroy_ab();
     });
     b.on("error", function(e){
         console.log("socket error", e);
-        b.unpipe(a);
-        b.destroy();
+        destroy_ab();
+    });
+    a.on("close", function(e){
+        destroy_ab();
+    });
+    b.on("close", function(e){
+        destroy_ab();
     });
 }
 

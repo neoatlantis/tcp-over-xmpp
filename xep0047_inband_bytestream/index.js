@@ -83,6 +83,11 @@ class XMPPInbandBytestreamEndpoint extends events.EventEmitter {
             } catch(e){
                 debug.log(e);
             }
+            try{
+                delete self.bytestreams[sid];
+            } catch(e){
+                debug.log(e);
+            }
             return true;
         });
 
